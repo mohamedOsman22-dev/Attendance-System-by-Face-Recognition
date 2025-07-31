@@ -1,0 +1,24 @@
+<div class="calendar-wrapper">
+  <h2 class="calendar-title">My Attendance Schedule</h2>
+
+  <p *ngIf="message">{{ message }}</p>
+
+  <table *ngIf="calendarEvents.length > 0">
+    <thead>
+      <tr>
+        <th>Subject</th>
+        <th>Day</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let event of calendarEvents">
+        <td>{{ event.subjectName }}</td>
+        <td>{{ getDayOfWeek(event.dayOfWeek) }}</td>
+        <td>{{ getFormattedTime(event.startTime) }}</td>
+        <td>{{ getFormattedTime(event.endTime) }}</td>
+      </tr>
+    </tbody>
+  </table> 
+</div>

@@ -1,0 +1,34 @@
+<nav class="main-navbar">
+  <div class="navbar-logo">
+    <img src="assets/logo.png" alt="logo" />
+    Face <span>AI</span>
+  </div>
+
+  <div class="navbar-links">
+    <a *ngFor="let link of navLinks"
+      [routerLink]="link.route"
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{ exact: link.route === '/' }">
+      {{ link.label }}
+    </a>
+  </div>
+
+  <div class="navbar-profile" *ngIf="user">
+    <img [src]="user.avatar || 'assets/placeholder.jpg'" alt="Profile" />
+    <span class="profile-name">{{ user.name }}</span>
+  </div>
+
+  <button class="navbar-menu-btn" (click)="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+
+  <div class="navbar-drawer" [class.open]="menuOpen">
+    <a *ngFor="let link of navLinks"
+      [routerLink]="link.route"
+      routerLinkActive="active-link"
+      (click)="toggleMenu()"
+      [routerLinkActiveOptions]="{ exact: link.route === '/' }">
+      {{ link.label }}
+    </a>
+  </div>
+</nav>

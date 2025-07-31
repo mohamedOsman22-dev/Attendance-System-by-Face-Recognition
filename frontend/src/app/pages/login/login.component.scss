@@ -1,0 +1,234 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&display=swap');
+
+.login-hero {
+  min-height: 100vh;
+  background: linear-gradient(120deg, #b993f7 0%, #92d2ff 100%);
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Manrope', Arial, sans-serif;
+}
+
+.login-glass {
+  background: rgba(255,255,255,0.13);
+  box-shadow: 0 8px 32px 0 #b993f755;
+  backdrop-filter: blur(16px) saturate(1.2);
+  border-radius: 32px;
+  padding: 4.5rem 3.5rem 3.5rem 3.5rem;
+  z-index: 2;
+  min-width: 440px;
+  max-width: 540px;
+  min-height: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: glassFadeIn 1.1s cubic-bezier(.4,2,.6,1);
+}
+
+.login-content {
+  width: 100%;
+  text-align: center;
+}
+
+.login-title {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #4a3fbf;
+  margin-bottom: 1.7rem;
+  letter-spacing: 1px;
+  background: linear-gradient(90deg, #fff 60%, #c471f5 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 8px #a3c7ff5c;
+  animation: titlePop 1.1s cubic-bezier(.4,2,.6,1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.welcome-icon {
+  font-size: 2.3rem !important;
+  background: linear-gradient(90deg, #a371ff 0%, #ed69f5 100%);
+  color: #fff !important;
+  border-radius: 50%;
+  box-shadow: 0 2px 12px #c187fc80;
+  padding: 6px;
+  margin-left: 6px;
+  transition: box-shadow 0.3s, background 0.3s;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 0.5rem;
+  .full-width { width: 100%; }
+}
+
+.login-btn {
+  padding: 14px 0;
+  font-weight: 700;
+  font-size: 1.15rem;
+  border-radius: 24px;
+  background: linear-gradient(90deg, #a371ff 0%, #ed69f5 100%);
+  color: white;
+  box-shadow: 0 4px 25px #c187fc80;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+  &:hover:enabled {
+    box-shadow: 0 6px 30px #c186fccc;
+    transform: scale(1.05);
+  }
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+}
+
+.login-animated-msg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  border-radius: 16px;
+  margin: 18px 0 0 0;
+  padding: 14px 22px;
+  box-shadow: 0 4px 24px #b993f755;
+  background: #fff;
+  min-width: 220px;
+  max-width: 90vw;
+  margin-left: auto;
+  margin-right: auto;
+  animation: popMsg 0.7s cubic-bezier(.4,2,.6,1);
+}
+.login-success-msg {
+  color: #219d5e;
+  background: #e6fff2;
+  border: 1.5px solid #b2f5d6;
+}
+.login-error-msg {
+  color: #ed3d56;
+  background: #fff0f3;
+  border: 1.5px solid #f7b2c2;
+}
+
+.signup-text {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.95rem;
+  color: #888;
+  a {
+    color: #3b82f6;
+    font-weight: bold;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.bubbles {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  span {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff4 40%, #a983ff22 100%);
+    animation: bubbleMove 13s infinite linear;
+    opacity: 0.6;
+    &:nth-child(1) { width: 130px; height: 130px; left: 8%;  bottom: -60px; animation-delay: 0s;}
+    &:nth-child(2) { width: 90px;  height: 90px;  left: 20%; bottom: -35px; animation-delay: 2s;}
+    &:nth-child(3) { width: 80px;  height: 80px;  right: 16%; bottom: -45px; animation-delay: 4s;}
+    &:nth-child(4) { width: 60px;  height: 60px;  right: 5%;  bottom: -15px; animation-delay: 6s;}
+    &:nth-child(5) { width: 180px; height: 180px; left: 48%; bottom: -80px; animation-delay: 8s;}
+    &:nth-child(6) { width: 60px; height: 60px; left: 38%; bottom: -30px; animation-delay: 10s;}
+  }
+}
+
+.corner-logo {
+  position: absolute;
+  top: 32px;
+  left: 38px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #fff;
+  background: rgba(101,31,255,0.13);
+  padding: 8px 18px 8px 12px;
+  border-radius: 18px;
+  box-shadow: 0 2px 8px #b993f755;
+  letter-spacing: 1px;
+  animation: fadeInLogo 1.2s cubic-bezier(.4,2,.6,1);
+  mat-icon { font-size: 2.1rem; color: #fa71cd; }
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: background 0.18s, box-shadow 0.18s;
+  background-clip: padding-box;
+  &:hover, &:focus {
+    background: rgba(101,31,255,0.22);
+    box-shadow: 0 4px 16px #b993f799;
+  }
+}
+
+// Animations
+@keyframes bubbleMove {
+  0% { transform: translateY(0) scale(1);}
+  100% { transform: translateY(-110vh) scale(1.2);}
+}
+@keyframes glassFadeIn {
+  0% { opacity: 0; transform: scale(0.95) translateY(40px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes popBtn {
+  0% { opacity: 0; transform: scale(0.7); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes badgePop {
+  0% { opacity: 0; transform: scale(0.7); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes titlePop {
+  0% { opacity: 0; transform: scale(0.7) translateY(30px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes fadeInLogo {
+  0% { opacity: 0; transform: translateY(-30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes gradientMove {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(30deg); }
+}
+@keyframes popMsg {
+  0% { opacity: 0; transform: scale(0.7) translateY(20px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.animate-fadein {
+  animation: fadeInUp 1.2s cubic-bezier(.4,2,.6,1);
+}
+.animate-title {
+  animation: titlePop 1.1s cubic-bezier(.4,2,.6,1);
+}
+.animate-pop {
+  animation: popBtn 1.3s cubic-bezier(.4,2,.6,1);
+}
+

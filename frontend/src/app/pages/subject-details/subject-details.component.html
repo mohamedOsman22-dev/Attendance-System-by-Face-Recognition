@@ -1,0 +1,17 @@
+<mat-tab-group>
+  <mat-tab label="Course Info">Course Info</mat-tab>
+
+  <mat-tab label="Take Attendance">
+    <app-subject-attendance 
+      [subject]="subject" 
+      [subjectId]="subject?.id">
+    </app-subject-attendance>
+  </mat-tab>
+
+  <mat-tab label="Review & Submit Attendance">
+    <app-subject-attendance-review 
+      [subject]="subject" 
+      [subjectId]="subject?.id">
+    </app-subject-attendance-review>
+  </mat-tab>
+</mat-tab-group>

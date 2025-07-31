@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&display=swap');
+
+.manage-attend-root {
+  padding: 40px 7vw;
+  font-family: 'Manrope', Arial, sans-serif;
+  background: linear-gradient(120deg, #f0f6ff 20%, #f9faff 100%);
+  min-height: 90vh;
+}
+
+.page-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #32415c;
+  margin-bottom: 30px;
+}
+
+.manage-table-wrap {
+  overflow-x: auto;
+  background: #fff;
+  border-radius: 20px;
+  padding: 24px 20px;
+  box-shadow: 0 6px 30px #c1d0f8aa;
+  border: 1.5px solid #cfdffb;
+}
+
+.manage-table {
+  width: 100%;
+  min-width: 700px;
+
+  th.mat-header-cell, td.mat-cell {
+    padding: 14px 20px;
+    font-size: 1.1rem;
+    border-bottom: 1.5px solid #e3e9ff;
+  }
+
+  th.mat-header-cell {
+    background: linear-gradient(90deg, #d7e1ff, #f1f6ff);
+    font-weight: 700;
+    color: #2e3c72;
+    border-radius: 12px 12px 0 0;
+    border-bottom: 3px solid #a5b9f8;
+  }
+
+  td.mat-cell {
+    color: #4a5071;
+    font-weight: 500;
+  }
+
+  tr.mat-row:hover {
+    background: #e9f1ff;
+    transition: background 0.3s ease;
+  }
+
+  mat-icon {
+    font-size: 1.4rem;
+    color: #8c8fba;
+    cursor: pointer;
+    transition: color 0.25s;
+    &:hover {
+      color: #2e3c72;
+      text-shadow: 0 0 8px #2e3c7299;
+    }
+  }
+}
+
+/* Scroll reveal animation */
+.fade-up-on-scroll {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s cubic-bezier(.3,1.2,.5,1.15), transform 0.7s cubic-bezier(.3,1.2,.5,1.15);
+}
+.fade-up-on-scroll.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}

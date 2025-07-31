@@ -1,0 +1,49 @@
+<div class="login-hero">
+  <div class="login-glass animate-fadein">
+    <div class="login-content">
+      <h1 class="login-title animate-title">
+        Welcome Back <mat-icon class="welcome-icon" color="primary">account_circle</mat-icon>
+      </h1>
+      <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" type="email" required autocomplete="username">
+          <mat-error *ngIf="loginForm.get('email')?.hasError('required')">Email is required</mat-error>
+          <mat-error *ngIf="loginForm.get('email')?.hasError('email')">Invalid email format</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Password</mat-label>
+          <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" required autocomplete="current-password">
+          <button mat-icon-button matSuffix type="button" (click)="togglePasswordVisibility()">
+            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Password is required</mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid || loading" class="login-btn full-width animate-pop">
+          <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
+          <span *ngIf="!loading">Login</span>
+        </button>
+
+        <div *ngIf="showAnimatedMsg" [ngClass]="{'login-success-msg': loginSuccess, 'login-error-msg': !loginSuccess, 'animate-fadein': showAnimatedMsg}" class="login-animated-msg">
+          <mat-icon>{{ loginSuccess ? 'check_circle' : 'error' }}</mat-icon>
+          {{ loginSuccess ? 'Login successful! Redirecting...' : 'Login failed. Please check your credentials.' }}
+        </div>
+
+        <div class="signup-text animate-fadein">
+          Don't have an account? <a routerLink="/signup">Sign up</a>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="bubbles">
+    <span *ngFor="let b of bubbles"></span>
+  </div>
+  <div class="corner-logo">
+    <button class="corner-logo" routerLink="/" matTooltip="Back to Home">
+      <mat-icon>face</mat-icon>
+      <span>FaceAI</span>
+    </button>
+  </div>
+</div>

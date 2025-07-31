@@ -1,0 +1,128 @@
+<div class="attendees-panel">
+  <!-- Sidebar: Attendees List -->
+  <div class="attendees-section">
+    <div class="attendees-list">
+      <div
+        class="attendee-card animate-card"
+        *ngFor="let person of filteredAttendees"
+        [class.selected]="selectedAttendee === person"
+        (click)="selectAttendee(person)">
+        <img [src]="getAvatarUrl(person)" class="attendee-avatar" />
+        <div class="attendee-info">
+          <h4>{{person.name || '---'}}</h4>
+          <p>{{person.email || '---'}}</p>
+        </div>
+        <span class="badge" *ngIf="person.assignedSubjects?.length">{{person.assignedSubjects.length}}</span>
+        <mat-icon class="edit-ic" (click)="openEditDialog(person); $event.stopPropagation();">edit</mat-icon>
+        <mat-icon class="delete-ic" (click)="deleteAttendee(person); $event.stopPropagation();">delete</mat-icon>
+      </div>
+      <div class="no-results" *ngIf="filteredAttendees && filteredAttendees.length === 0">
+        <mat-icon>person_off</mat-icon>
+        <span>No attendees found.</span>
+      </div>
+    </div>
+    <button class="add-btn animate-btn" (click)="openAddDialog()">
+      <mat-icon>person_add</mat-icon> Add Attendee
+    </button>
+    <button class="delete-all-btn animate-btn" (click)="deleteAllAttendees()">
+      <mat-icon>delete</mat-icon> Delete All Attendees
+    </button>
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <mat-icon>account_circle</mat-icon>
+        <span>Admin Panel</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main: Details -->
+  <div class="attendee-details animate-details">
+    <ng-container *ngIf="selectedAttendee; else emptyDetails">
+      <img [src]="selectedAttendee.avatar || 'assets/placeholder.jpg'" class="details-avatar" />
+      <h3>{{ selectedAttendee.name || '---' }}</h3>
+      <p>{{ selectedAttendee.email || '---' }}</p>
+      <div class="number-line" *ngIf="selectedAttendee.number">
+        <mat-icon>call</mat-icon>
+        <span>{{selectedAttendee.number}}</span>
+      </div>
+      <div *ngIf="selectedAttendee && selectedAttendee.assignedSubjects && selectedAttendee.assignedSubjects.length > 0" class="assigned-list">
+        <div class="assigned-title">Assigned Subjects:</div>
+        <div *ngFor="let sid of selectedAttendee.assignedSubjects" class="assigned-subject-item">
+          <mat-icon class="assigned-ic">check_circle</mat-icon>
+          <span class="subject-name">{{ getSubjectName(sid) }}</span>
+          <span class="subject-instructor">({{ getInstructorNameForSubject(sid) || '---' }})</span>
+        </div>
+      </div>
+      <div class="details-actions">
+        <button class="edit-btn animate-btn" (click)="openEditDialog(selectedAttendee)"><mat-icon>edit</mat-icon> Edit</button>
+        <button class="delete-btn animate-btn" (click)="deleteAttendee(selectedAttendee)"><mat-icon>delete</mat-icon> Delete</button>
+        <button class="add-btn animate-btn" type="button" (click)="openSubjectDialog()"><mat-icon>add</mat-icon> Assign Subjects</button>
+        <button class="add-btn animate-btn upload-btn" type="button" (click)="imageInput.click()"><mat-icon>cloud_upload</mat-icon> Upload Images</button>
+        <input #imageInput type="file" multiple accept="image/*" style="display:none" (change)="onFileSelected($event)" />
+      </div>
+    </ng-container>
+    <ng-template #emptyDetails>
+      <div class="empty-details">
+        <mat-icon>person_search</mat-icon>
+        <p>Select attendee to see details</p>
+      </div>
+    </ng-template>
+  </div>
+
+  <!-- Modal (Add/Edit Attendee) -->
+  <div class="modal-backdrop" *ngIf="showDialog">
+    <form class="modal-dialog animate-modal" (ngSubmit)="saveAttendee()">
+      <label class="avatar-label">
+        <img [src]="editAttendee.avatar || 'assets/placeholder.jpg'" class="edit-avatar" />
+        <input type="file" accept="image/*" (change)="onAvatarChange($event)" />
+        <span class="avatar-edit-ic"><mat-icon>camera_alt</mat-icon></span>
+      </label>
+      <input type="text" [(ngModel)]="editAttendee.name" name="name" placeholder="Name" required autocomplete="off" />
+      <input type="email" [(ngModel)]="editAttendee.email" name="email" placeholder="Email" required autocomplete="off" />
+      <input type="text" [(ngModel)]="editAttendee.number" name="number" placeholder="Number" autocomplete="off" />
+      <input type="password" [(ngModel)]="editAttendee.password" name="password" placeholder="Password" autocomplete="off" />
+      <button type="button" class="add-btn animate-btn" style="margin:8px 0;" (click)="openSubjectDialog()">
+        <mat-icon>add</mat-icon> Assign Subjects
+      </button>
+      <div *ngIf="editAttendee.assignedSubjects && editAttendee.assignedSubjects.length" class="assigned-subjects-preview">
+        <span *ngFor="let sid of editAttendee.assignedSubjects">{{ getSubjectName(sid) }}</span>
+      </div>
+      <div class="modal-actions">
+        <button type="submit" class="save-btn animate-btn">
+          <mat-icon>{{editMode ? 'save' : 'person_add_alt_1'}}</mat-icon> {{editMode ? 'Update' : 'Add'}}
+        </button>
+        <button type="button" class="cancel animate-btn" (click)="showDialog=false">
+          <mat-icon>close</mat-icon> Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Modal لاختيار المواد كـ Checkbox -->
+  <div class="modal-backdrop" *ngIf="showSubjectDialog">
+    <form class="modal-dialog modal-subjects-card animate-modal" (ngSubmit)="saveSelectedSubjects()">
+      <div class="modal-title-row">
+        <mat-icon>menu_book</mat-icon>
+        <h3>Select Subjects</h3>
+        <button class="close-btn" type="button" (click)="showSubjectDialog = false">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-subjects-list">
+        <label *ngFor="let subj of subjects" class="subject-option-row">
+          <input type="checkbox"
+            [checked]="subjectSelection.includes(subj.id)"
+            (change)="onSubjectCheckboxChange($event, subj.id)" />
+          <span>{{subj.name}}</span>
+        </label>
+      </div>
+      <div class="modal-actions">
+        <button type="submit" class="save-btn animate-btn">Done</button>
+        <button type="button" class="cancel animate-btn" (click)="showSubjectDialog=false">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <div *ngIf="successMsg" class="success-message animate-msg">{{ successMsg }}</div>
+  <div *ngIf="errorMsg" class="error-message animate-msg">{{ errorMsg }}</div>
+</div>

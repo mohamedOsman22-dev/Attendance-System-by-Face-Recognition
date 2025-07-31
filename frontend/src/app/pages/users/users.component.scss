@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&display=swap');
+
+.users-root {
+  padding: 40px 7vw;
+  font-family: 'Manrope', Arial, sans-serif;
+  background: linear-gradient(120deg, #d8e7ff 20%, #f7f2ff 100%);
+}
+
+.users-title {
+  font-size: 2.6rem;
+  font-weight: 800;
+  margin-bottom: 24px;
+  color: #32415c;
+}
+
+.add-btn {
+  font-weight: 700;
+  font-size: 1.1rem;
+  border-radius: 24px;
+  padding: 12px 32px;
+  background: linear-gradient(90deg, #a371ff 0%, #ed69f5 100%);
+  color: white;
+  margin-bottom: 24px;
+  box-shadow: 0 3px 15px #bb7fff80;
+  transition: box-shadow 0.3s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 6px 30px #c186fcbb;
+    transform: scale(1.07) translateY(-3px);
+  }
+}
+
+.users-table-wrap {
+  overflow-x: auto;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 6px 25px rgba(60, 63, 161, 0.15);
+  padding: 24px 20px;
+  border: 1.5px solid #e0e2f5;
+}
+
+.users-table {
+  width: 100%;
+  min-width: 650px;
+  font-family: 'Manrope', Arial, sans-serif;
+
+  th.mat-header-cell, td.mat-cell {
+    padding: 14px 20px;
+    font-size: 1.1rem;
+    border-bottom: 1.4px solid #e7e8f6;
+  }
+
+  th.mat-header-cell {
+    background: linear-gradient(90deg, #edf2ff, #f9faff);
+    font-weight: 700;
+    color: #5261f6;
+    border-bottom: 2px solid #a3a8ff;
+    border-radius: 12px 12px 0 0;
+  }
+
+  td.mat-cell {
+    color: #4b4f60;
+    font-weight: 500;
+  }
+
+  tr.mat-row:hover {
+    background: #eef3ff;
+    transition: background 0.3s ease;
+  }
+
+  mat-icon {
+    font-size: 1.4rem;
+    color: #7a7f9d;
+    cursor: pointer;
+    transition: color 0.25s;
+    &:hover {
+      color: #5261f6;
+      text-shadow: 0 0 8px #5261f6aa;
+    }
+  }
+}
+
+/* Scroll reveal animation */
+.fade-up-on-scroll {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s cubic-bezier(.3,1.2,.5,1.15), transform 0.7s cubic-bezier(.3,1.2,.5,1.15);
+}
+
+.fade-up-on-scroll.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}

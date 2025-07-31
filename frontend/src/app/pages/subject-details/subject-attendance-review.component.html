@@ -1,0 +1,33 @@
+<div class="attendance-review-section">
+  <h3>🧾 Review Attendance List</h3>
+
+  <!-- ✅ حالة عدم وجود طلاب -->
+  <div *ngIf="attendanceList.length === 0" class="empty-list">
+    <p>No attendance data available yet.</p>
+  </div>
+
+  <!-- ✅ قائمة الطلاب -->
+  <ul class="att-list" *ngIf="attendanceList.length > 0">
+    <li *ngFor="let student of attendanceList; let i = index" class="att-row">
+      <span>{{ student.name }} ({{ student.id }})</span>
+      <button mat-icon-button color="warn" (click)="remove(i)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </li>
+  </ul>
+
+  <!-- ✅ زر الإرسال النهائي -->
+  <div *ngIf="attendanceList.length > 0 && !reportReady" class="submit-section">
+    <button mat-flat-button color="primary" (click)="submitAttendance()">
+      Submit Attendance
+    </button>
+  </div>
+
+  <!-- ✅ بعد الإرسال، عرض رسالة النجاح وزر تحميل التقرير -->
+  <div *ngIf="reportReady" class="download-section">
+    <p class="success-msg">✅ Attendance submitted successfully!</p>
+    <button mat-stroked-button color="accent" (click)="downloadPDF()">
+      Download PDF Report
+    </button>
+  </div>
+</div>

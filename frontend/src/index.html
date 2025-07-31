@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Face AI Attendance</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- خط Cairo للغة العربية / خطوط Google العصرية -->
+  <link href="https://fonts.googleapis.com/css?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+    body, html, app-root {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: linear-gradient(120deg,#b993f7 0%,#a6c1ee 100%);
+      font-family: 'Cairo', 'Roboto', Arial, sans-serif;
+      box-sizing: border-box;
+    }
+    /* سكرول ناعم */
+    html { scroll-behavior: smooth; }
+    /* شوية تحسينات للـ Selection */
+    ::selection { background: #b993f7; color: #fff; }
+    /* تحسين مظهر الاسكرول بار */
+    ::-webkit-scrollbar { width: 9px; background: #e5e1f7; }
+    ::-webkit-scrollbar-thumb { background: #b993f7cc; border-radius: 6px; }
+    /* Fix لمشكلة input autofill في المتصفح */
+    input:-webkit-autofill { box-shadow: 0 0 0 1000px #fff inset !important; }
+    
+  </style>
+</head>
+<body>
+  <app-root></app-root>
+</body>
+</html>

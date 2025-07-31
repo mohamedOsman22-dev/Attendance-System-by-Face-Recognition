@@ -1,0 +1,14 @@
+.students-list {
+  max-width: 600px;
+  margin: 1.5rem auto;
+}
+.loading, .error {
+  text-align: center;
+  margin: 2rem 0;
+}
+mat-list-item {
+  border-radius: 8px;
+  &:hover {
+    background: #f3f3ff;
+  }
+} 

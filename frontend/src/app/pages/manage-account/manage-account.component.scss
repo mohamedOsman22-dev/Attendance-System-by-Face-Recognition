@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&display=swap');
+
+.account-root {
+  max-width: 480px;
+  margin: 40px auto;
+  padding: 30px 24px;
+  background: linear-gradient(135deg, #f5f6ff 0%, #e9e8ff 100%);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px #a0a9e633;
+  font-family: 'Manrope', Arial, sans-serif;
+}
+
+.page-title {
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: #32415c;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.account-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+
+  .full-width {
+    width: 100%;
+  }
+
+  .save-btn {
+    padding: 14px 0;
+    font-weight: 700;
+    font-size: 1.15rem;
+    border-radius: 24px;
+    background: linear-gradient(90deg, #a371ff 0%, #ed69f5 100%);
+    color: white;
+    box-shadow: 0 4px 25px #c187fc80;
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+
+    &:hover:not(:disabled) {
+      box-shadow: 0 6px 30px #c186fccc;
+      transform: scale(1.05);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+  }
+}
+
+/* Scroll reveal animation */
+.fade-up-on-scroll {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s cubic-bezier(.3,1.2,.5,1.15), transform 0.7s cubic-bezier(.3,1.2,.5,1.15);
+}
+
+.fade-up-on-scroll.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}

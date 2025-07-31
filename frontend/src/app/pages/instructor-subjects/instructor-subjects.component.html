@@ -1,0 +1,22 @@
+<div class="subjects-container">
+  <!-- عرض رسالة لو في تحميل -->
+  <div *ngIf="loading" class="loading-message">
+    جاري تحميل المواد...
+  </div>
+
+  <!-- عرض رسالة في حالة عدم وجود مواد -->
+  <div *ngIf="!loading && subjects.length === 0" class="no-subjects">
+    {{ error || 'لا توجد مواد متاحة.' }}
+  </div>
+
+  <!-- عرض المواد -->
+  <div *ngIf="!loading && subjects.length > 0" class="subjects-list">
+    <div *ngFor="let subject of subjects" class="subject-card">
+      <h2 class="subject-title">{{ subject.name }}</h2>
+<p class="subject-desc">
+  تم إنشاؤه في: {{ subject.createdDate | date: 'mediumDate' }}
+</p>
+<button (click)="openSubjectDetails(subject)">تفصيل</button>
+    </div>
+  </div>
+</div>

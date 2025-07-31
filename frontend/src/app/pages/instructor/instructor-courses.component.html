@@ -1,0 +1,30 @@
+<app-navbar-instructor />
+
+<h2 class="page-title">Your Subjects</h2>
+
+<div *ngIf="loading" class="centered">
+  <mat-spinner diameter="48"></mat-spinner>
+</div>
+<div *ngIf="errorMsg && !loading" class="error-msg">
+  <mat-icon>error</mat-icon> {{ errorMsg }}
+</div>
+<div *ngIf="!loading && !errorMsg && subjects.length === 0" class="empty-msg">
+  <mat-icon>info</mat-icon> No subjects assigned yet.
+</div>
+<div class="courses-grid" *ngIf="!loading && !errorMsg && subjects.length">
+  <mat-card *ngFor="let subject of subjects" class="subject-card">
+    <mat-card-header>
+      <mat-card-title>{{ subject.name }}</mat-card-title>
+      <mat-card-subtitle>{{ subject.schedule || subject.dates?.[0]?.day }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Instructor: {{ subject.instructor || '' }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="accent" (click)="openSubject(subject)">
+        <mat-icon>login</mat-icon>
+        Take Attendance
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

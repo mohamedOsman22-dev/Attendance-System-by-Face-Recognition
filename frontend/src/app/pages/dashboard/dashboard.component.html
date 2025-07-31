@@ -1,0 +1,62 @@
+<div class="dashboard-layout">
+  <nav class="sidebar">
+    <div class="logo">
+      <img src="assets/logo.png" alt="Logo" />
+      <span>Face<span style="color:#b993f7">AI</span></span>
+    </div>
+    <div class="nav-section">
+      <h3 class="nav-title">Main Menu</h3>
+      <ul>
+        <li [class.active]="activeTab === 'attendees'" (click)="selectTab('attendees')">
+          <span class="icon"><mat-icon>groups</mat-icon></span>
+          <span class="nav-text">Attendees</span>
+          <span class="nav-badge" *ngIf="attendeesComp?.attendees?.length">{{attendeesComp?.attendees?.length}}</span>
+        </li>
+        <li [class.active]="activeTab === 'instructors'" (click)="selectTab('instructors')">
+          <span class="icon"><mat-icon>school</mat-icon></span>
+          <span class="nav-text">Instructors</span>
+          <span class="nav-badge" *ngIf="instructorsComp?.instructors?.length">{{instructorsComp?.instructors?.length}}</span>
+        </li>
+        <li [class.active]="activeTab === 'subjects'" (click)="selectTab('subjects')">
+          <span class="icon"><mat-icon>menu_book</mat-icon></span>
+          <span class="nav-text">Subjects</span>
+          <span class="nav-badge" *ngIf="subjectsComp?.subjects?.length">{{subjectsComp?.subjects?.length}}</span>
+        </li>
+      </ul>
+    </div>
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <mat-icon>account_circle</mat-icon>
+        <span>Admin Panel</span>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="dashboard-container">
+    <header class="dashboard-header">
+      <div class="header-left">
+        <h1>{{getPageTitle()}}</h1>
+        <p class="subtitle">Manage your {{activeTab}} efficiently</p>
+      </div>
+      <div class="header-right">
+        <button mat-icon-button class="refresh-btn" (click)="refreshData()">
+          <mat-icon>refresh</mat-icon>
+        </button>
+        <button mat-raised-button color="primary" class="add-btn" (click)="onAddNew()">
+          <mat-icon>add</mat-icon>
+          Add New
+        </button>
+      </div>
+    </header>
+
+    <main class="dashboard-main">
+      <div class="content-wrapper">
+        <ng-container [ngSwitch]="activeTab">
+          <app-attendees *ngSwitchCase="'attendees'" class="fade-in" #attendeesComp></app-attendees>
+          <app-instructors *ngSwitchCase="'instructors'" class="fade-in" #instructorsComp></app-instructors>
+          <app-subjects *ngSwitchCase="'subjects'" class="fade-in" #subjectsComp></app-subjects>
+        </ng-container>
+      </div>
+    </main>
+  </div>
+</div>

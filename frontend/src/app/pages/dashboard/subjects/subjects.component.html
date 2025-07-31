@@ -1,0 +1,101 @@
+<div class="subjects-panel">
+  <!-- Left: List of Subjects -->
+  <div class="subjects-section">
+    <div class="subjects-list">
+      <div
+        class="subject-card"
+        *ngFor="let subj of subjects"
+        [class.selected]="selectedSubject === subj"
+        (click)="selectSubject(subj)">
+        <mat-icon>menu</mat-icon>
+        <div>
+          <h4>{{subj.name}}</h4>
+          <p class="subject-id">{{subj.id}}</p>
+        </div>
+        <div class="card-actions">
+          <mat-icon class="edit-ic" (click)="openEditDialog(subj); $event.stopPropagation();">edit</mat-icon>
+          <mat-icon class="delete-ic" (click)="deleteSubject(subj); $event.stopPropagation();">delete</mat-icon>
+        </div>
+      </div>
+    </div>
+    <button class="add-btn" (click)="openAddDialog()">
+      <mat-icon>add</mat-icon>
+      Add Subject
+    </button>
+    <button class="delete-all-btn" (click)="deleteAllSubjects()">
+      <mat-icon>delete</mat-icon>
+      Delete All Subjects
+    </button>
+  </div>
+
+  <!-- Right: Subject Details -->
+  <div class="subject-details" *ngIf="selectedSubject; else noSubject">
+    <div class="details-card">
+      <div class="subject-header">
+        <input [(ngModel)]="selectedSubject.name" [readonly]="!editNameMode" class="subject-name-input" />
+        <button class="edit-ic" (click)="editNameMode = !editNameMode">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button class="delete-ic" (click)="deleteSubject(selectedSubject)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+      <div class="schedule-section">
+        <div class="dates-header">
+          <h4>Subject Dates</h4>
+          <button class="add-date-btn" (click)="openAddDateDialog(selectedSubject)">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+        <div class="schedule-list">
+          <div
+            class="schedule-row"
+            *ngFor="let date of selectedSubject.dates; let i = index">
+            <span class="day">{{ getDayName(date.dayOfWeek ?? date.day) }}</span>
+            <span class="from">{{date.startTime ?? date.from}}</span>
+            <span class="to">{{date.endTime ?? date.to}}</span>
+            <button class="edit-ic small" (click)="openEditDateDialog(selectedSubject, i)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button class="delete-ic small" (click)="deleteDate(selectedSubject, i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noSubject>
+    <div class="empty-details">
+      <mat-icon>menu_book</mat-icon>
+      <p>Select subject to see details</p>
+    </div>
+  </ng-template>
+
+  <!-- Add/Edit Subject Modal -->
+  <div class="modal-backdrop" *ngIf="showDialog">
+    <form class="modal-dialog" (ngSubmit)="saveSubject()">
+      <input type="text" [(ngModel)]="editSubject.name" name="name" placeholder="Subject Name" required />
+      <div class="modal-actions">
+        <button type="submit" class="save-btn">{{editMode ? 'Update' : 'Create'}}</button>
+        <button type="button" class="cancel" (click)="showDialog=false">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Add/Edit Date Modal -->
+  <div class="modal-backdrop" *ngIf="showDateDialog">
+    <form class="modal-dialog" (ngSubmit)="saveDate()">
+      <select [(ngModel)]="editDate.day" name="day" required>
+        <option *ngFor="let d of daysOfWeek" [value]="d">{{d}}</option>
+      </select>
+      <input type="time" [(ngModel)]="editDate.from" name="from" required />
+      <input type="time" [(ngModel)]="editDate.to" name="to" required />
+      <div class="modal-actions">
+        <button type="submit" class="save-btn">{{editDateMode ? 'Update' : 'Add'}}</button>
+        <button type="button" class="cancel" (click)="showDateDialog=false">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

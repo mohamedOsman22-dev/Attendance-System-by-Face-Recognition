@@ -1,0 +1,154 @@
+<div class="instructors-panel">
+  <!-- قائمة المدرسين (اليسار) -->
+  <div class="instructors-section">
+    <div class="search-box">
+      <mat-icon>search</mat-icon>
+      <input type="text" placeholder="Search..." [(ngModel)]="searchValue" (ngModelChange)="onSearchChange()" />
+    </div>
+    <button class="add-btn" (click)="openAddDialog()">
+      <mat-icon>person_add</mat-icon> Add Instructor
+    </button>
+    <div class="instructors-list">
+      <div
+        class="instructor-card"
+        *ngFor="let person of filteredInstructors; trackBy: trackByInstructorId"
+        [class.selected]="selectedInstructor === person"
+        (click)="selectInstructor(person)">
+        <img [src]="person.avatar || 'assets/default-avatar.png'" class="instructor-avatar" />
+        <div>
+          <h4>{{ person.name }}</h4>
+          <p style="font-size: 0.95em; color: #b993f7; margin: 0;">{{ person.email || '---' }}</p>
+          <!-- المواد المرتبطة بالمدرس (لو متاحة) -->
+          <div *ngIf="person.subjects && person.subjects.length > 0" class="subjects-inline">
+            <mat-icon>menu_book</mat-icon>
+            <span *ngFor="let subjId of person.subjects">{{ getSubjectName(subjId) }}</span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <mat-icon class="edit-ic" (click)="openEditDialog(person); $event.stopPropagation();">edit</mat-icon>
+          <mat-icon class="delete-ic" (click)="deleteInstructor(person); $event.stopPropagation();">delete</mat-icon>
+        </div>
+      </div>
+      <div class="no-results" *ngIf="filteredInstructors.length === 0">
+        <mat-icon>person_off</mat-icon>
+        <span>No instructors found.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- تفاصيل المدرس (اليمين) -->
+  <div class="instructor-details">
+    <ng-container *ngIf="selectedInstructor; else emptyDetails">
+      <div class="details-card">
+        <img [src]="selectedInstructor.avatar || 'assets/default-avatar.png'" class="details-avatar" />
+        <h3>{{ selectedInstructor.name }}</h3>
+        <p class="details-email">
+          <b>{{ selectedInstructor.email || '---' }}</b>
+        </p>
+        <!-- المواد تحت الاسم -->
+        <div class="subjects-inline" *ngIf="selectedInstructor.subjects && selectedInstructor.subjects.length">
+          <mat-icon>menu_book</mat-icon>
+          <span *ngFor="let subjId of selectedInstructor.subjects" class="subject-chip" matTooltip="{{ getSubjectName(subjId) }}">
+            {{ getSubjectName(subjId) }}
+          </span>
+        </div>
+        <button class="add-btn" (click)="openSubjectDialog('edit')" style="margin-top:10px;" matTooltip="ربط مواد للمدرس">
+          <mat-icon>add</mat-icon>
+          Assign Subjects
+        </button>
+        <button class="edit-btn" (click)="openEditDialog(selectedInstructor)" matTooltip="تعديل بيانات المدرس">
+          <mat-icon>edit</mat-icon> Edit
+        </button>
+        <button class="delete-btn" (click)="deleteInstructor(selectedInstructor)" matTooltip="حذف المدرس">
+          <mat-icon>delete</mat-icon> Delete
+        </button>
+      </div>
+    </ng-container>
+    <ng-template #emptyDetails>
+      <div class="empty-details">
+        <mat-icon>person_search</mat-icon>
+        <p>Select instructor to see details</p>
+      </div>
+    </ng-template>
+  </div>
+
+  <!-- Modal Instructor (Add/Edit Instructor) -->
+  <div class="modal-backdrop" *ngIf="showDialog">
+    <form class="modal-dialog animate-modal" (ngSubmit)="saveInstructor()">
+      <div *ngIf="successMsg" class="success-message">
+        <mat-icon>check_circle</mat-icon> {{ successMsg }}
+      </div>
+      <div *ngIf="errorMsg" class="error-message">
+        <mat-icon>error</mat-icon> {{ errorMsg }}
+      </div>
+      <label class="avatar-label">
+        <img [src]="editInstructor.avatar || 'assets/default-avatar.png'" class="edit-avatar" />
+        <input type="file" accept="image/*" (change)="onAvatarChange($event)" />
+        <span class="avatar-edit-ic"><mat-icon>camera_alt</mat-icon></span>
+      </label>
+      <input type="text" [(ngModel)]="editInstructor.name" name="name" placeholder="Name" required autocomplete="off" />
+      <input type="email" [(ngModel)]="editInstructor.email" name="email" placeholder="Email" required autocomplete="off" />
+      <input type="text" [(ngModel)]="editInstructor.number" name="number" placeholder="Number" autocomplete="off" />
+      <div style="position:relative; width:100%; display:flex; align-items:center;">
+        <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="editInstructor.password" name="password" placeholder="Password" autocomplete="off" class="password-input" style="flex:1; padding-right:36px; height:44px;" />
+        <button type="button" (click)="showPassword = !showPassword" style="position:absolute; right:8px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; color:#b993f7; padding:0; height:32px; width:32px; display:flex; align-items:center; justify-content:center;">
+          <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </div>
+      <div *ngIf="editInstructor.subjects && editInstructor.subjects.length" class="assigned-subjects-preview" style="margin-top:8px;">
+        <span *ngFor="let subjId of editInstructor.subjects">
+          {{ getSubjectName(subjId) }}
+        </span>
+      </div>
+      <div class="modal-actions">
+        <button type="submit" class="save-btn">
+          <mat-icon>{{editMode ? 'save' : 'person_add_alt_1'}}</mat-icon>
+          {{editMode ? 'Update Instructor' : 'Add Instructor'}}
+        </button>
+        <button type="button" class="cancel" (click)="showDialog=false">
+          <mat-icon>close</mat-icon> Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Modal اختيار المواد بشكل Card منبثق -->
+  <div class="modal-backdrop" *ngIf="showSubjectDialog">
+    <form class="modal-dialog modal-subjects-card" (ngSubmit)="saveSelectedSubjects()">
+      <div *ngIf="successMsg" class="success-message">
+        <mat-icon>check_circle</mat-icon> {{ successMsg }}
+      </div>
+      <div *ngIf="errorMsg" class="error-message">
+        <mat-icon>error</mat-icon> {{ errorMsg }}
+      </div>
+      <div class="modal-title-row">
+        <mat-icon>menu_book</mat-icon>
+        <h3>Select Subjects</h3>
+        <button class="close-btn" type="button" (click)="showSubjectDialog = false">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-subjects-list">
+        <label *ngFor="let subj of subjects" class="subject-option-row">
+          <input type="checkbox"
+            [checked]="subjectSelection.includes(subj.id)"
+            [disabled]="selectedInstructor?.subjects?.includes(subj.id)"
+            (change)="onSubjectCheckboxChange($event, subj.id)" />
+          <span>{{subj.name}}</span>
+        </label>
+      </div>
+      <div class="modal-actions">
+        <button type="submit" class="save-btn">Done</button>
+        <button type="button" class="cancel" (click)="showSubjectDialog=false">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Toast Messages -->
+  <div class="toast-message success-toast" *ngIf="successMsg">
+    <mat-icon>check_circle</mat-icon> {{ successMsg }}
+  </div>
+  <div class="toast-message error-toast" *ngIf="errorMsg">
+    <mat-icon>error</mat-icon> {{ errorMsg }}
+  </div>
+</div>

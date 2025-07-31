@@ -1,0 +1,32 @@
+<div class="home-hero" [class.leaving]="isLeaving">
+  <div class="hero-glass">
+    <div class="hero-content">
+      <h1 class="home-title animate-title">
+        Revolutionize <span>Attendance</span><br>
+        with <span>Face AI</span>
+      </h1>
+      <p class="home-desc animate-fadein">
+        Unlock next-level security and efficiency with advanced AI-powered facial authentication.<br>
+        <span class="ai-badge">AI Powered</span>
+      </p>
+      <button
+        mat-flat-button
+        color="primary"
+        class="get-started-btn animate-pop"
+        (click)="goToLogin()"
+        matTooltip="Get started now and assign attendance with AI.">
+        <mat-icon>rocket_launch</mat-icon>
+        Get Started
+      </button>
+    </div>
+  </div>
+  <div class="bubbles">
+    <span *ngFor="let b of bubbles"></span>
+  </div>
+  <div class="corner-logo">
+    <button class="corner-logo" routerLink="/" matTooltip="العودة للصفحة الرئيسية">
+      <mat-icon>face</mat-icon>
+      <span>FaceAI</span>
+    </button>
+  </div>
+</div>

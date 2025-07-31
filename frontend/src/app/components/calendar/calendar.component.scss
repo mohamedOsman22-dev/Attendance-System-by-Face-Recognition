@@ -1,0 +1,39 @@
+.calendar-container {
+  height: 100%;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-header {
+  margin-bottom: 20px;
+  
+  .calendar-actions {
+    display: flex;
+    gap: 10px;
+  }
+}
+
+::ng-deep {
+  .cal-month-view,
+  .cal-week-view,
+  .cal-day-view {
+    background-color: white;
+    border-radius: 8px;
+  }
+
+  .cal-header {
+    background-color: #f8f9fa;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .cal-event {
+    background-color: #007bff;
+    border-color: #0056b3;
+  }
+
+  .cal-day-cell {
+    min-height: 100px;
+  }
+} 

@@ -1,0 +1,320 @@
+.subjects-panel {
+  display: flex;
+  gap: 34px;
+  padding: 48px 32px;
+  width: 100%;
+  min-height: calc(100vh - 70px);
+  background: none;
+}
+
+.subjects-section {
+  min-width: 360px;
+  max-width: 370px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  background: none;
+
+  .subjects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .subject-card {
+    background: linear-gradient(100deg, #24173d 80%, #271b4a 100%);
+    color: #fff;
+    border-radius: 20px;
+    padding: 16px 16px 16px 12px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    box-shadow: 0 8px 32px #8655ff36;
+    border: 2.5px solid transparent;
+    transition: box-shadow 0.2s, border 0.2s, background 0.3s;
+    position: relative;
+
+    &.selected, &:hover {
+      border: 2.5px solid #b993f7;
+      box-shadow: 0 8px 44px #b993f799;
+    }
+    mat-icon {
+      font-size: 2rem;
+      color: #c6b8fa;
+      margin-right: 3px;
+    }
+    h4 {
+      margin: 0;
+      font-size: 1.14rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .subject-id {
+      font-size: 0.88rem;
+      color: #cfcff7;
+      margin-top: 1px;
+    }
+    .card-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: auto;
+      .edit-ic, .delete-ic {
+        background: #6c55f4;
+        color: #fff;
+        border-radius: 50%;
+        width: 32px; height: 32px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.3rem;
+        border: none;
+        outline: none;
+        margin-left: 2px;
+        transition: background 0.2s;
+        cursor: pointer;
+      }
+      .edit-ic:hover { background: #b993f7; color: #23234a; }
+      .delete-ic { background: #fc4a6a; }
+      .delete-ic:hover { background: #fff; color: #fc4a6a; }
+    }
+  }
+
+  .add-btn {
+    width: 100%;
+    margin-top: 8px;
+    background: linear-gradient(90deg, #b993f7, #7462ff 90%);
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    padding: 15px 0;
+    font-size: 1.11rem;
+    font-weight: bold;
+    box-shadow: 0 2px 12px #b993f733;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    transition: background 0.2s, filter 0.2s;
+    cursor: pointer;
+  }
+  .add-btn:hover { filter: brightness(1.06);}
+
+  .delete-all-btn {
+    width: 100%;
+    margin-top: 8px;
+    background: linear-gradient(90deg, #fc4a6a, #ff7b7b 90%);
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    padding: 15px 0;
+    font-size: 1.11rem;
+    font-weight: bold;
+    box-shadow: 0 2px 12px #fc4a6a33;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    transition: background 0.2s, filter 0.2s;
+    cursor: pointer;
+  }
+  .delete-all-btn:hover { filter: brightness(1.08); background: linear-gradient(90deg, #ff7b7b, #fc4a6a 90%);}
+}
+
+.subject-details {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0;
+  background: none;
+
+  .details-card {
+    background: linear-gradient(110deg, #2d2255 70%, #382c67 100%);
+    border-radius: 26px;
+    box-shadow: 0 8px 44px #b993f7a0;
+    padding: 36px 45px 48px 45px;
+    min-width: 400px;
+    min-height: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .subject-header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-bottom: 16px;
+      gap: 13px;
+
+      .subject-name-input {
+        font-size: 1.23rem;
+        font-weight: 700;
+        background: none;
+        color: #fff;
+        border: none;
+        border-bottom: 2px solid #b993f7;
+        width: 85%;
+        outline: none;
+        transition: border 0.2s;
+      }
+      .subject-name-input[readonly] {
+        border-bottom: 2px solid #44436a;
+        color: #cfcff7;
+      }
+
+      .edit-ic, .delete-ic {
+        background: #6c55f4;
+        color: #fff;
+        border-radius: 50%;
+        width: 32px; height: 32px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.3rem;
+        border: none;
+        outline: none;
+        margin-left: 2px;
+        transition: background 0.2s;
+        cursor: pointer;
+      }
+      .edit-ic:hover { background: #b993f7; color: #23234a;}
+      .delete-ic { background: #fc4a6a;}
+      .delete-ic:hover { background: #fff; color: #fc4a6a;}
+    }
+
+    .schedule-section {
+      width: 100%;
+      .dates-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 14px;
+        h4 { margin: 0; color: #fff; font-size: 1.07rem; }
+        .add-date-btn {
+          background: #b993f7;
+          color: #23234a;
+          border-radius: 50%;
+          width: 30px; height: 30px;
+          border: none; outline: none;
+          display: flex; align-items: center; justify-content: center;
+          cursor: pointer;
+          transition: background 0.2s;
+        }
+        .add-date-btn:hover { background: #fff; color: #b993f7;}
+      }
+
+      .schedule-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .schedule-row {
+          background: #251c40;
+          border-radius: 13px;
+          padding: 10px 16px;
+          display: flex;
+          align-items: center;
+          gap: 18px;
+          color: #fff;
+          font-size: 1.02rem;
+          position: relative;
+          .day { min-width: 90px; font-weight: bold; }
+          .from, .to { min-width: 50px; }
+          .edit-ic, .delete-ic {
+            width: 26px; height: 26px;
+            font-size: 1.01rem;
+            margin-left: 8px;
+            border-radius: 50%;
+            border: none; outline: none;
+            background: #6c55f4;
+            color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s;
+          }
+          .edit-ic:hover { background: #b993f7; color: #23234a; }
+          .delete-ic { background: #fc4a6a;}
+          .delete-ic:hover { background: #fff; color: #fc4a6a;}
+          .small { font-size: 0.97rem; width: 24px; height: 24px;}
+        }
+      }
+    }
+  }
+}
+
+/* ------ MODAL ---------- */
+.modal-backdrop {
+  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+  background: #18192bb0;
+  z-index: 1500;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.modal-dialog {
+  background: #23234a;
+  color: #fff;
+  border-radius: 24px;
+  padding: 35px 40px 30px 40px;
+  min-width: 320px;
+  box-shadow: 0 8px 50px #b993f7cc;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  input, select {
+    background: #271b4a;
+    color: #fff;
+    border: 2px solid #b993f7;
+    border-radius: 12px;
+    padding: 12px 15px;
+    font-size: 1.08rem;
+    margin-bottom: 10px;
+    outline: none;
+    width: 100%;
+    transition: border 0.2s;
+  }
+  input:focus, select:focus { border: 2px solid #6c55f4; }
+
+  .modal-actions {
+    display: flex;
+    gap: 13px;
+    margin-top: 5px;
+    .save-btn {
+      background: linear-gradient(90deg,#b993f7,#7462ff 90%);
+      color: #fff;
+      border: none;
+      border-radius: 13px;
+      padding: 10px 25px;
+      font-size: 1.09rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .save-btn:hover { filter: brightness(1.12);}
+    .cancel {
+      background: #44436a;
+      color: #fff;
+      border: none;
+      border-radius: 13px;
+      padding: 10px 19px;
+      font-size: 1.01rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .cancel:hover { background: #23234a; color: #fc4a6a;}
+  }
+}
+
+.empty-details {
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  opacity: 0.65;
+  font-size: 1.19rem;
+  gap: 18px;
+  mat-icon { font-size: 2.9rem; color: #b993f7; }
+}

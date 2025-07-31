@@ -1,0 +1,39 @@
+<app-navbar-instructor />
+
+<div class="face-attend-container">
+  <div class="face-attend-card">
+    <h1 class="face-attend-title">Face Attendance</h1>
+    <form [formGroup]="attendanceForm" (ngSubmit)="submitAttendance()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Subject ID</mat-label>
+        <input matInput formControlName="subjectId" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Student ID</mat-label>
+        <input matInput formControlName="studentId" required>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="attendanceForm.invalid || loading" class="full-width">
+        <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
+        <span *ngIf="!loading">Submit Attendance</span>
+      </button>
+
+      <div *ngIf="errorMsg" class="error-message">
+        {{ errorMsg }}
+      </div>
+
+      <div *ngIf="successMsg" class="success-message">
+        {{ successMsg }}
+      </div>
+    </form>
+    <div class="attendance-list">
+      <h2>Attendance List</h2>
+      <div *ngFor="let record of attendanceList" class="attendance-item">
+        <p>Student ID: {{ record.studentId }}</p>
+        <p>Subject ID: {{ record.subjectId }}</p>
+        <p>Attendance Time: {{ record.attendanceTime }}</p>
+      </div>
+    </div>
+  </div>
+</div>

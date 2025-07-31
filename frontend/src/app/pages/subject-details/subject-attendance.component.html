@@ -1,0 +1,73 @@
+<div class="attendance-section">
+
+  <!-- ✅ عرض اسم المادة -->
+  <mat-form-field appearance="outline" style="width: 300px; margin-bottom: 1rem;">
+    <mat-label>Subject Name</mat-label>
+    <input matInput [value]="subject?.name || 'Unnamed Subject'" readonly>
+  </mat-form-field>
+
+  <!-- ✅ قسم الكاميرا -->
+  <div class="camera-card">
+    <h3>📷 Take Attendance by Camera</h3>
+
+    <button mat-stroked-button color="primary" (click)="startCamera()" *ngIf="!cameraActive">
+      <mat-icon>camera_alt</mat-icon>
+      Start Camera
+    </button>
+
+    <div *ngIf="cameraActive" class="camera-view">
+      <video #video width="320" height="240" autoplay muted></video>
+      <canvas #canvas width="320" height="240" style="display:none;"></canvas>
+
+      <div class="camera-actions">
+        <button mat-flat-button color="primary" (click)="captureImage()">
+          <mat-icon>camera</mat-icon>
+          Capture
+        </button>
+        <button mat-stroked-button color="warn" (click)="stopCamera()">
+          <mat-icon>close</mat-icon>
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- ✅ الإدخال اليدوي -->
+  <div class="manual-card">
+    <h3>✍️ Manual Attendance</h3>
+
+    <div class="manual-form">
+      <mat-form-field appearance="outline" style="width: 300px;">
+        <mat-label>Student ID</mat-label>
+        <mat-select [(ngModel)]="manualId">
+          <mat-option *ngFor="let s of students" [value]="s.id">
+            {{ s.id }} - {{ s.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-flat-button color="accent" (click)="addManualAttendance()" style="margin-top: 1rem;">
+        Add Manually
+      </button>
+    </div>
+
+    <!-- ✅ قائمة الحضور المؤقت -->
+    <div *ngIf="attendanceList.length > 0" class="att-list" style="margin-top: 2rem;">
+      <h4>📋 Temporary Attendance List</h4>
+      <ul>
+        <li *ngFor="let student of attendanceList; let i = index" class="att-row">
+          <span>{{ student.name }} ({{ student.id }})</span>
+          <button mat-icon-button color="warn" (click)="removeFromAttendance(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </li>
+      </ul>
+
+      <button mat-stroked-button color="primary" (click)="sendToReview()">
+        Send to Review
+      </button>
+    </div>
+  </div>
+</div>
